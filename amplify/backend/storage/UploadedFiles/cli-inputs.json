@@ -1,0 +1,14 @@
+{
+  "resourceName": "UploadedFiles",
+  "policyUUID": "4a68eb1e",
+  "bucketName": "mybackenddropboxbc3fb236ba034982b74836327c395a5",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Triggerbba9d8a6",
+  "groupAccess": {}
+}
