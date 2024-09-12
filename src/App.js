@@ -1,25 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import FileUpload from './components/FileUpload';
+import FileList from './components/FileList';
+import { Amplify } from 'aws-amplify';
+import awsmobile from './aws-exports';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import "@aws-amplify/ui-react/styles.css";
 
-function App() {
+
+
+Amplify.configure(awsmobile);
+
+
+function App({ signOut }) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Dropbox Clone</h1>
+      <button id="hover-button" style={{ height: "100%", padding: ".5rem 2rem", cursor: "pointer", }} onClick={signOut} >Sign Out </button>
+      <FileUpload />
+      <FileList />
     </div>
   );
 }
 
-export default App;
+export default withAuthenticator(App);
