@@ -10,13 +10,14 @@ import "@aws-amplify/ui-react/styles.css";
 
 
 
+
 Amplify.configure(awsmobile);
 
 
 function App({ signOut }) {
   return (
     <div className="App">
-      <h1>Dropbox Clone</h1>
+      <h1>My Backend Dropbox App</h1>
       <button id="hover-button" style={{ height: "100%", padding: ".5rem 2rem", cursor: "pointer", }} onClick={signOut} >Sign Out </button>
       <FileUpload />
       <FileList />

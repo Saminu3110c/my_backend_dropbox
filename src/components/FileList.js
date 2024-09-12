@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 // import { Storage } from 'aws-amplify';
 // import { Storage } from '@aws-amplify/storage';
-import { uploadData, downloadData, list, remove } from '@aws-amplify/storage';
+// import { uploadData, downloadData, list, remove } from '@aws-amplify/storage';
+import { list } from '@aws-amplify/storage';
+import FileDelete from './FileDelete';
+import FileRename from './FileRename';
 
 
 const FileList = () => {
@@ -25,7 +28,7 @@ const FileList = () => {
       <h2>Uploaded Files</h2>
       <ul>
         {files.map(file => (
-          <li key={file.key}>{file.key}</li>
+          <li key={file.key}>{file.key}<FileRename oldFileKey={file.key} onRenameSuccess={fetchFiles} /><FileDelete fileKey={file.key} onDeleteSuccess={fetchFiles} /></li>
         ))}
       </ul>
     </div>
