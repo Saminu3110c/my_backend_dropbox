@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/storage": "^6.6.5",
-    "@aws-amplify/ui-react": "^6.3.1",
+    "@aws-amplify/ui-react": "^6.5.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "aws-amplify": "^6.6.0",
+    "aws-amplify": "^6.6.2",
     "bootstrap": "^5.3.3",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -39,15 +39,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@aws-amplify/backend": "^1.2.1",
-    "@aws-amplify/backend-cli": "^1.2.6",
-    "aws-cdk": "^2.157.0",
-    "aws-cdk-lib": "^2.157.0",
-    "constructs": "^10.3.0",
-    "esbuild": "^0.23.1",
-    "tsx": "^4.19.0",
-    "typescript": "^5.6.2"
   }
 }

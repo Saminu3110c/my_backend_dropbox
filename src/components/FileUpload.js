@@ -1,158 +1,121 @@
 // import React, { useState } from 'react';
-// // Import 'put' directly from '@aws-amplify/storage'
-// import {put} from '@aws-amplify/storage';
-// import { Form, Button, Alert } from 'react-bootstrap';
+// // import { Storage } from 'aws-amplify';
+// import { uploadData, getUrl, remove } from 'aws-amplify/storage';
+// import { Form, Button } from 'react-bootstrap';
+// import './styles/FileUpload.css'; // Importing the CSS for styling
 
 // const FileUpload = () => {
 //   const [file, setFile] = useState(null);
-//   const [fileInfo, setFileInfo] = useState(null);
-//   const [alertMessage, setAlertMessage] = useState(null);
-//   const [alertVariant, setAlertVariant] = useState('success');
+//   const [folderName, setFolderName] = useState('');
 
 //   const handleFileChange = (event) => {
 //     setFile(event.target.files[0]);
 //   };
 
+//   const handleFolderChange = (event) => {
+//     setFolderName(event.target.value);
+//   };
+
 //   const handleUpload = async () => {
-//     if (!file) {
-//       setAlertMessage('Please choose a file first!');
-//       setAlertVariant('danger');
-//       return;
-//     }
-
-//     try {
-//       // Use 'put' directly for file upload
-//       const response = await put(file.name, file, {
-//         contentType: file.type,
-//       });
-
-//       const newFileInfo = {
-//         key: response.key, // S3 key for the uploaded file
-//         size: file.size,
-//         type: file.type,
-//         lastModified: file.lastModifiedDate.toString(),
-//       };
-
-//       setFileInfo(newFileInfo);
-//       setAlertMessage('File uploaded successfully!');
-//       setAlertVariant('success');
+//     try { 
+//       const fileKey = folderName ? `${folderName}/${file.name}` : file.name;
+//     //   await Storage.put(fileKey, file);
+//     await uploadData({ key: fileKey, data: file });
+//       alert('File uploaded successfully!');
 //     } catch (error) {
-//       setAlertMessage('Error uploading file!');
-//       setAlertVariant('danger');
-//       console.error("Error uploading file:", error);
+//       console.error('Error uploading file:', error);
 //     }
 //   };
 
 //   return (
-//     <div className="file-upload-container">
-//       <Form>
-//         <Form.Group controlId="formFile">
-//           <Form.Label>Choose File to Upload</Form.Label>
-//           <Form.Control type="file" onChange={handleFileChange} />
-//         </Form.Group>
-//         <Button variant="primary" onClick={handleUpload}>
-//           Upload File
-//         </Button>
-//       </Form>
-
-//       {/* Alert for upload success or error */}
-//       {alertMessage && (
-//         <Alert variant={alertVariant} className="mt-3">
-//           {alertMessage}
-//         </Alert>
-//       )}
-
-//       {/* Display new file info */}
-//       {fileInfo && (
-//         <div className="mt-3">
-//           <h5>File Information</h5>
-//           <p><strong>File Name:</strong> {fileInfo.key}</p>
-//           <p><strong>File Size:</strong> {fileInfo.size} bytes</p>
-//           <p><strong>File Type:</strong> {fileInfo.type}</p>
-//           <p><strong>Last Modified:</strong> {fileInfo.lastModified}</p>
-//         </div>
-//       )}
+//     <div className="container mt-5">
+//       <h1>Upload a File</h1>
+//       <Form.Group controlId="formFolderName">
+//         <Form.Label>Folder Name (Optional)</Form.Label>
+//         <Form.Control
+//           type="text"
+//           placeholder="Enter folder name"
+//           value={folderName}
+//           onChange={handleFolderChange}
+//         />
+//       </Form.Group>
+//       <Form.Group controlId="formFile">
+//         <Form.Label>Choose File</Form.Label>
+//         <Form.Control type="file" onChange={handleFileChange} />
+//       </Form.Group>
+//       <Button onClick={handleUpload} className="btn btn-primary mt-3">
+//         Upload
+//       </Button>
 //     </div>
 //   );
 // };
 
 // export default FileUpload;
 
-
 import React, { useState } from 'react';
-// Import 'uploadData' directly from '@aws-amplify/storage'
-import { uploadData } from '@aws-amplify/storage';
-import { Form, Button, Alert } from 'react-bootstrap';
+// import { Storage } from 'aws-amplify';
+import { uploadData, getUrl, remove } from 'aws-amplify/storage';
+import { Form, Button } from 'react-bootstrap';
+import './styles/FileUpload.css';
 
-const FileUpload = () => {
+const Amplify = require('aws-amplify');
+const Storage = Amplify.Storage;
+
+
+const FileUpload = ({ onUploadSuccess }) => {
   const [file, setFile] = useState(null);
-  const [fileInfo, setFileInfo] = useState(null);
-  const [alertMessage, setAlertMessage] = useState(null);
-  const [alertVariant, setAlertVariant] = useState('success');
+  const [folderName, setFolderName] = useState('');
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
-  const handleUpload = async () => {
-    if (!file) {
-      setAlertMessage('Please choose a file first!');
-      setAlertVariant('danger');
-      return;
-    }
-
-    try {
-      // Use 'uploadData' to upload the file
-      const response = await uploadData(file.name, file, {
-        contentType: file.type,
-      });
-
-      const newFileInfo = {
-        key: response.key, // S3 key for the uploaded file
-        size: file.size,
-        type: file.type,
-        lastModified: file.lastModifiedDate.toString(),
-      };
-
-      setFileInfo(newFileInfo);
-      setAlertMessage('File uploaded successfully!');
-      setAlertVariant('success');
-    } catch (error) {
-      setAlertMessage('Error uploading file!');
-      setAlertVariant('danger');
-      console.error("Error uploading file:", error);
-    }
+  const handleFolderChange = (event) => {
+    setFolderName(event.target.value);
   };
 
+//   const handleUpload = async () => {
+//     try { //   await Storage.put(fileKey, file);
+//         //     await uploadData({ key: fileKey, data: file });
+//       const fileKey = folderName ? `${folderName}/${file.name}` : file.name;
+//       await uploadData({ key: fileKey, data: file });
+//       alert('File uploaded successfully!');
+//       onUploadSuccess();  // Notify the parent component to refresh the file list
+//     } catch (error) {
+//       console.error('Error uploading file:', error);
+//     }
+//   };
+
+  const handleUpload = async () => {
+    try {
+      const fileKey = folderName ? `${folderName}/${file.name}` : file.name;
+      await Storage.put(fileKey, file);
+      alert('File uploaded successfully!');
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  };
+  
+
   return (
-    <div className="file-upload-container">
-      <Form>
-        <Form.Group controlId="formFile">
-          <Form.Label>Choose File to Upload</Form.Label>
-          <Form.Control type="file" onChange={handleFileChange} />
-        </Form.Group>
-        <Button variant="primary" onClick={handleUpload}>
-          Upload File
-        </Button>
-      </Form>
-
-      {/* Alert for upload success or error */}
-      {alertMessage && (
-        <Alert variant={alertVariant} className="mt-3">
-          {alertMessage}
-        </Alert>
-      )}
-
-      {/* Display new file info */}
-      {fileInfo && (
-        <div className="mt-3">
-          <h5>File Information</h5>
-          <p><strong>File Name:</strong> {fileInfo.key}</p>
-          <p><strong>File Size:</strong> {fileInfo.size} bytes</p>
-          <p><strong>File Type:</strong> {fileInfo.type}</p>
-          <p><strong>Last Modified:</strong> {fileInfo.lastModified}</p>
-        </div>
-      )}
+    <div className="container mt-5">
+      <h1>Upload a File</h1>
+      <Form.Group controlId="formFolderName">
+        <Form.Label>Folder Name (Optional)</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter folder name"
+          value={folderName}
+          onChange={handleFolderChange}
+        />
+      </Form.Group>
+      <Form.Group controlId="formFile">
+        <Form.Label>Choose File</Form.Label>
+        <Form.Control type="file" onChange={handleFileChange} />
+      </Form.Group>
+      <Button onClick={handleUpload} className="btn btn-primary mt-3">
+        Upload
+      </Button>
     </div>
   );
 };

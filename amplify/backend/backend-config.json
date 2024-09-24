@@ -1,6 +1,6 @@
 {
   "auth": {
-    "mybackenddropbox113346d9": {
+    "mybackenddropbox2d1579beb": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -28,32 +28,32 @@
     }
   },
   "function": {
-    "S3Triggerbba9d8a6": {
+    "S3Triggercf56ea06": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
-    "AMPLIFY_function_S3Triggerbba9d8a6_deploymentBucketName": {
+    "AMPLIFY_function_S3Triggercf56ea06_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "S3Triggerbba9d8a6"
+          "resourceName": "S3Triggercf56ea06"
         }
       ]
     },
-    "AMPLIFY_function_S3Triggerbba9d8a6_s3Key": {
+    "AMPLIFY_function_S3Triggercf56ea06_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "S3Triggerbba9d8a6"
+          "resourceName": "S3Triggercf56ea06"
         }
       ]
     }
   },
   "storage": {
-    "UploadedFiles": {
+    "myfiles": {
       "dependsOn": [
         {
           "attributes": [
@@ -62,7 +62,7 @@
             "LambdaExecutionRole"
           ],
           "category": "function",
-          "resourceName": "S3Triggerbba9d8a6"
+          "resourceName": "S3Triggercf56ea06"
         }
       ],
       "providerPlugin": "awscloudformation",
