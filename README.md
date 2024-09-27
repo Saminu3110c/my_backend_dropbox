@@ -17,7 +17,7 @@ The "My Backend Dropbox" project is a cloud-based file management system where u
 To set up the project locally, follow these steps:
 1. Clone the repository:
 ```bash
-git clone https://git.us.qwasar.io/my_backend_dropbox_171872_inxxv-/my_backend_dropbox.git
+git clone https://github.com/Saminu3110c/my_backend_dropbox.git
 ```
 2. Navigate to the project directory:
 ```bash
@@ -41,7 +41,7 @@ To use the app:
 - **Share files** by copying a secure link.
 
 ### The Core Team
-1      
+   
 
 
 <span><i>Made at <a href='https://qwasar.io'>Qwasar SV -- Software Engineering School</a></i></span>
