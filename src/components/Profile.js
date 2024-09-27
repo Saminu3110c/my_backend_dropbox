@@ -1,60 +1,24 @@
-// src/components/Profile.js
-import React, { useState, useEffect } from 'react';
-import { Auth } from 'aws-amplify';
-import { Form, Button } from 'react-bootstrap';
-import './styles/Profile.css';
+import React, { useState } from "react"
+import { Card, Alert } from "react-bootstrap"
+import { useAuth } from "../AuthContext"
+import { Link } from "react-router-dom"
+import CenteredContainer from "./CenteredContainer"
 
-const Profile = () => {
-  const [userInfo, setUserInfo] = useState({ username: '', email: '' });
-  const [newEmail, setNewEmail] = useState('');
-
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
-
-  const fetchUserInfo = async () => {
-    try {
-      const user = await Auth.currentAuthenticatedUser();
-      setUserInfo({
-        username: user.username,
-        email: user.attributes.email,
-      });
-    } catch (error) {
-      console.error('Error fetching user info:', error);
-    }
-  };
-
-  const handleEmailChange = (e) => setNewEmail(e.target.value);
-
-  const handleUpdateProfile = async () => {
-    try {
-      const user = await Auth.currentAuthenticatedUser();
-      await Auth.updateUserAttributes(user, { email: newEmail });
-      alert('Email updated successfully');
-      fetchUserInfo();
-    } catch (error) {
-      console.error('Error updating profile:', error);
-    }
-  };
-
+export default function Profile() {
+  const [error ] = useState("")
+  const { currentUser } = useAuth()
   return (
-    <div className="container mt-5">
-      <h1>Profile</h1>
-      <Form>
-        <Form.Group controlId="formUsername">
-          <Form.Label>Username</Form.Label>
-          <Form.Control type="text" value={userInfo.username} readOnly />
-        </Form.Group>
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control type="email" value={newEmail || userInfo.email} onChange={handleEmailChange} />
-        </Form.Group>
-        <Button onClick={handleUpdateProfile} className="btn btn-primary mt-3">
-          Update Profile
-        </Button>
-      </Form>
-    </div>
-  );
-};
-
-export default Profile;
+    <CenteredContainer>
+      <Card className="bg-light border border-secondary rounded">
+        <Card.Body className="text-secondary">
+          <h2 className="text-center text-secondary mb-4">Profile</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <strong className="text-dark">Email:</strong> {currentUser.email}
+          <Link to="/update-profile" className="btn btn-secondary w-100 mt-3">
+            Update Profile
+          </Link>
+        </Card.Body>
+      </Card>
+    </CenteredContainer>
+  )
+}
