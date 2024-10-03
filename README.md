@@ -39,6 +39,7 @@ To use the app:
 - **Navigate folders** by creating and browsing through directories.
 - **Preview files** by clicking on any uploaded image.
 - **Share files** by copying a secure link.
+- **Delete files** by clicking delete button.
 
 ### The Core Team
    
