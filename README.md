@@ -21,7 +21,7 @@ git clone https://github.com/Saminu3110c/my_backend_dropbox.git
 ```
 2. Navigate to the project directory:
 ```bash
-cd my-backend-dropbox
+cd my_backend_dropbox
 ```
 3. Install dependencies:
 ```bash
